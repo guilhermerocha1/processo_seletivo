@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+
+  frontend:
+    image: node:16.18
+    platform: linux/x86_64
+    container_name: app_frontend
+    build: ./front-end
+    ports:
+      - 3000:3000
+    working_dir: /app/front-end
+    volumes:
+      - ./front-end:/app/front-end
+    depends_on:
+      - backend
+    networks:
+      - vitual_wan_Front-to-Back
+
+  backend:
+    container_name: app_backend
+    build: ./back-end
+    ports:
+      - 3001:3001
+    platform: linux/x86_64
+    working_dir: /app/back-end
+    volumes:
+      - ./back-end:/app/back-end
+    depends_on:
+      - db
+    environment:
+      - APP_PORT=3001
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_HOST=localhost
+      - POSTGRES_PORT=3002
+    networks:
+      - vitual_wan_Front-to-Back
+      - vitual_lan_Back-to-DB
+
+  db:
+    image: postgres:14.1-alpine
+    container_name: app_db
+    platform: linux/x86_64
+    ports:
+      - 3002:5432
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=password
+    networks:
+      - vitual_lan_Back-to-DB
+    cap_add:
+      - SYS_NICE
+
+networks:
+# The presence of these objects is sufficient to define them
+  vitual_wan_Front-to-Back: {}
+  vitual_lan_Back-to-DB: {}
