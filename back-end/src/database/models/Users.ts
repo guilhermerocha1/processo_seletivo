@@ -1,9 +1,9 @@
-import { Model, STRING } from 'sequelize';
+import { Model, STRING, INTEGER} from 'sequelize';
 import db from '.';
 
 class Users extends Model {
-  username?: string;
-  password?: string;
+  username!: string;
+  password!: string;
 }
 
 Users.init({
@@ -15,9 +15,13 @@ Users.init({
     type: STRING,
     allowNull: false,
   },
+  accountId: {
+    type: INTEGER,
+  }
 }, {
-  underscored: true,
   sequelize: db,
+  timestamps: false,
+  tableName: 'users'
 });
 
 export default Users;

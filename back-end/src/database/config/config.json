@@ -5,8 +5,7 @@
     "database": "NG_CASH",
     "host": "localhost",
     "dialect": "postgres",
-    "port": 3002,
-    "logging": true
+    "port": 3002
   },
   "test": {
     "username": "root",
