@@ -8,8 +8,14 @@ const _1 = __importDefault(require("."));
 class Users extends sequelize_1.Model {
 }
 Users.init({
-    username: sequelize_1.DataTypes.STRING,
-    password: sequelize_1.DataTypes.STRING,
+    username: {
+        type: sequelize_1.STRING,
+        allowNull: false,
+    },
+    password: {
+        type: sequelize_1.STRING,
+        allowNull: false,
+    },
 }, {
     underscored: true,
     sequelize: _1.default,
