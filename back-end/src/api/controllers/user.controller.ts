@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import createToken from "../../helpers/token";
+import createToken from "../helpers/token";
 import UserService from "../services/user.service";
 
 

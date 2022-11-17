@@ -1,5 +1,5 @@
 import Users from "../../database/models/Users";
-import hash from "../../helpers/bcrypt";
+import hash from "../helpers/bcrypt";
 // import User from "../interfaces/user.interface";
 
 const UserService = {
