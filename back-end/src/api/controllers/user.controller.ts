@@ -3,12 +3,15 @@ import { StatusCodes } from "http-status-codes";
 import createToken from "../helpers/token";
 import UserService from "../services/user.service";
 
-
 const UserContronller = {
   
   create: async (req: Request, res: Response) => {
     try {
-      UserService.create(req.body);
+      const user = await UserService.create(req.body);
+
+      if(user === null) return res.status(StatusCodes.UNAUTHORIZED)
+        .json({ message: '"username" invalid or exist' });
+
       const token = createToken(req.body);
       res.status(StatusCodes.CREATED).json({ token });
     } catch (error) {
