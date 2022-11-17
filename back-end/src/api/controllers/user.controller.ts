@@ -17,6 +17,20 @@ const UserContronller = {
     } catch (error) {
       res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(error);
     }
+  },
+
+  login: async (req: Request, res: Response) => {
+    try {
+      const user = await UserService.login(req.body);
+
+      if(!user) return res.status(StatusCodes.UNAUTHORIZED)
+        .json({ message: 'Incorrect username or password' });
+
+      const token = createToken(req.body);
+      res.status(StatusCodes.ACCEPTED).json({ token });
+    } catch (error) {
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(error);
+    }
   }
 }
 
