@@ -1,10 +1,11 @@
+// import Accounts from "../../database/models/Accounts";
 import Users from "../../database/models/Users";
 import { hash, compare } from "../helpers/bcrypt";
-// import User from "../interfaces/user.interface";
+import User from "../interfaces/user.interface";
 
 const UserService = {
   
-  create: async (user: any) => {
+  create: async (user: User) => {
     const { username, password } = user;
 
     const isValidUser = await Users.findOne({ where: { username } });
@@ -12,11 +13,11 @@ const UserService = {
       return null;
     }
 
-    const bcrypt = hash(password);
-    await Users.create({ username, password: bcrypt });
+    const bcryptHash = hash(password);
+    await Users.create({ username, password: bcryptHash });
   },
 
-  login: async (user: any) => {
+  login: async (user: User) => {
     const { username, password } = user;
     const isValidUser = await Users.findOne({ where: { username } });
     
