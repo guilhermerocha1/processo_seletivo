@@ -1,4 +1,3 @@
-index.js
-setupTests.js
-reportWebVitals.js
+setupTests.ts
+reportWebVitals.ts
 /tests
