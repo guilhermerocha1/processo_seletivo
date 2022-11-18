@@ -1,5 +1,6 @@
-import { Model, STRING, INTEGER} from 'sequelize';
+import { Model, STRING, INTEGER } from 'sequelize';
 import db from '.';
+import Accounts from './Accounts';
 
 class Users extends Model {
   username!: string;
@@ -15,13 +16,14 @@ Users.init({
     type: STRING,
     allowNull: false,
   },
-  accountId: {
-    type: INTEGER,
-  }
 }, {
   sequelize: db,
   timestamps: false,
   tableName: 'users'
 });
+
+Accounts.hasOne(Users, { foreignKey: 'accountId', as: 'users' });
+
+Users.belongsTo(Accounts, { foreignKey: 'accountId', as: 'accounts' });
 
 export default Users;

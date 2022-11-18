@@ -1,11 +1,12 @@
 import { Model, NUMBER} from 'sequelize';
 import db from '.';
+import Users from './Users';
 
-class Account extends Model {
+class Accounts extends Model {
   balance!: number;
 }
 
-Account.init({
+Accounts.init({
   balance: {
     type: NUMBER,
     allowNull: false,
@@ -13,7 +14,7 @@ Account.init({
 }, {
   sequelize: db,
   timestamps: false,
-  tableName: 'accounts'
+  tableName: 'accounts',
 });
 
-export default Account;
+export default Accounts;

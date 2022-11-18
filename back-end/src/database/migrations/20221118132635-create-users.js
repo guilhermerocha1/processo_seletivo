@@ -20,7 +20,13 @@ module.exports = {
       accountId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        autoIncrement: true,
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        foreignKey: true,
+        references: {
+          model: 'accounts',
+          key: 'id',
+        }
       }
     });
   },
